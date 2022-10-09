@@ -21,7 +21,7 @@ jobs:
           git add .
           git commit -m "[AUTO:BUILD] build from data.json"
       - name: Push
-        uses: ad-m/musikbank@master
+        uses: mrtampan/musikbank@master
         with:
           github_token: ${{ secrets.TOKEN }}
           branch: "master"
