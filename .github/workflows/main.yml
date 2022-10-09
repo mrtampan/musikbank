@@ -1,0 +1,28 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@master
+      - name: Installing PHP
+        uses: shivammathur/setup-php@master
+        with:
+          php-version: 7.3
+      - name: Run Build Generate
+        run: php generate.php
+      - name: Commit
+        run: |
+          git config --local user.name "mrtampan"
+          git config --local user.email "mrtampan54@gmail.com"
+          git add .
+          git commit -m "[AUTO:BUILD] build from data.json"
+      - name: Push
+        uses: ad-m/musikbank@master
+        with:
+          github_token: ${{ secrets.TOKEN }}
+          branch: "master"
+          repository: "mrtampan/musikbank"
